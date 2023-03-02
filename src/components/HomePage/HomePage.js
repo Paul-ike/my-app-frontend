@@ -9,6 +9,7 @@ function HomePage({ books }) {
         <div className="row">
           {books.map((book) => (
             <div
+              key={book.id}
               id="bookCard"
               className="card col- m-2"
               // style={{ width: "18rem" }}
@@ -22,8 +23,11 @@ function HomePage({ books }) {
               <div className="card-body">
                 <h5 className="card-title">Title: {book.title}</h5>
                 <p className="card-text">Author: {book.author}</p>
-                <p className="card-text">Price: {book.price}</p>
-                <Link to="/review" className="btn btn-outline-light btn-sm">
+                <p className="card-text">Price: ${book.price}</p>
+                <Link
+                  to={`/viewbook/${book.id}`}
+                  className="btn btn-outline-light btn-sm"
+                >
                   View
                 </Link>
               </div>

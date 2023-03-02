@@ -1,16 +1,24 @@
 import React, { useState } from "react";
+import { useNavigate } from "react-router-dom";
 import "./CreateBook.css";
 
 function CreateBook() {
-  const [formData, SetFormData] = useState({
+  const [formData, setFormData] = useState({
     image: "",
     title: "",
     author: "",
     price: "",
   });
+  const navigate = useNavigate();
 
   function handleSubmit(e) {
     e.preventDefault();
+
+    const { image, title, author, price } = formData;
+    if (!image || !title || !author || !price) {
+      alert("Please fill out all fields.");
+      return;
+    }
 
     fetch("http://localhost:9292/books", {
       method: "POST",
@@ -21,18 +29,23 @@ function CreateBook() {
     })
       .then((r) => r.json())
       .then((data) => data);
+    navigate("/");
     document.location.reload();
   }
 
   function handleChange(e) {
     const key = e.target.name;
     const value = e.target.value;
-    SetFormData({ ...formData, [key]: value });
+    setFormData({ ...formData, [key]: value });
   }
+
+  const isFormValid =
+    formData.image && formData.title && formData.author && formData.price;
 
   return (
     <div id="form">
       <form id="formCard" className="card" onSubmit={handleSubmit}>
+        <h3>Create Book</h3>
         <div className="mb-3">
           <label className="form-label">Book Image</label>
           <input
@@ -69,8 +82,12 @@ function CreateBook() {
             placeholder="Type Here"
           />
         </div>
-        <button type="submit" className="btn btn-dark btn-sm m-4">
-          Submit
+        <button
+          type="submit"
+          className="btn btn-outline-light btn-sm m-4"
+          disabled={!isFormValid}
+        >
+          Create Book
         </button>
       </form>
     </div>
