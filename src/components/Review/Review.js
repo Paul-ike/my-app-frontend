@@ -11,7 +11,7 @@ function Review() {
     fetch(`http://localhost:9292/book/${id}`)
       .then((r) => r.json())
       .then((data) => setBook(data));
-  }, []);
+  }, [id]);
 
   function handleDeleteClick() {
     fetch(`http://localhost:9292/deletebook/${id}`, {
