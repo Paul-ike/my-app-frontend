@@ -6,6 +6,7 @@ function Review() {
   const { id } = useParams();
   const navigate = useNavigate();
   const [book, setBook] = useState([]);
+  const [reviews, setReviews] = useState([]);
 
   useEffect(() => {
     fetch(`http://localhost:9292/book/${id}`)
@@ -20,6 +21,12 @@ function Review() {
     navigate("/");
     document.location.reload();
   }
+
+  useEffect(() => {
+    fetch(`http://localhost:9292/reviews/${id}`)
+      .then((r) => r.json())
+      .then((data) => setReviews(data.reviews));
+  }, [id]);
 
   return (
     <div id="review">
@@ -57,6 +64,20 @@ function Review() {
             </div>
           </div>
         </div>
+        <h2>Book Rating</h2>
+        {reviews.map((review) => (
+          <div id="commentCard" key={review.id} className="card m-1">
+            <div className="card-header">Comment on Book</div>
+            <div className="card-body">
+              <blockquote className="blockquote mb-0">
+                <p>{review.comment}</p>
+                <footer className="blockquote-footer">
+                  <cite title="Source Title">Rate: {review.star_rating}</cite>
+                </footer>
+              </blockquote>
+            </div>
+          </div>
+        ))}
       </div>
     </div>
   );

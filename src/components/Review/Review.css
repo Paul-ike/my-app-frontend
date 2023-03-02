@@ -7,12 +7,12 @@
     background-color: #804674;
     padding: 2%;
     color: #F5FFC9;
-    height: 155vh;
+    height: 100%;
     font-family: 'Nunito', sans-serif;
 }
 @media screen and (min-width: 914px) {
   #review {
-    height: 80vh;
+    height: 100%;
   }
 }
 
@@ -38,4 +38,17 @@
 {
   display: flex;
   justify-content: space-around;
+}
+
+#commentCard
+{
+  background-color: #A86464;
+  text-align: left;
+  width: 18rem;
+  color: #B3E5BE;
+}
+
+#commentCard footer
+{
+  color: #B3E5BE;
 }
