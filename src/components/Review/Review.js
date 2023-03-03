@@ -45,7 +45,7 @@ function Review() {
               <div className="card-body">
                 <h4 className="card-title">Title: {book.title}</h4>
                 <p className="card-text">Author: {book.author}</p>
-                <p className="card-text">Price: {book.price}</p>
+                <p className="card-text">Price: ${book.price}</p>
                 <div id="linkBtn">
                   <Link
                     to={`/updatebook/${book.id}`}
