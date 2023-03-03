@@ -72,7 +72,7 @@ function Review() {
               <blockquote className="blockquote mb-0">
                 <p>{review.comment}</p>
                 <footer className="blockquote-footer">
-                  <cite title="Source Title">Rate: {review.star_rating}</cite>
+                  <cite title="Source Title">Rate: {review.star_rating} %</cite>
                 </footer>
               </blockquote>
             </div>
