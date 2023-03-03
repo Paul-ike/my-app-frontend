@@ -76,6 +76,7 @@ function CreateBook() {
         <div className="mb-3">
           <label className="form-label">Book Price</label>
           <input
+            type="number"
             onChange={handleChange}
             className="form-control"
             name="price"
