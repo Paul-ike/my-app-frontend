@@ -2,7 +2,7 @@ import React, { useState } from "react";
 import { useNavigate } from "react-router-dom";
 import "./CreateBook.css";
 
-function CreateBook() {
+function CreateBook({ onAddBook }) {
   const [formData, setFormData] = useState({
     image: "",
     title: "",
@@ -20,15 +20,20 @@ function CreateBook() {
       return;
     }
 
-    fetch("http://localhost:9292/books", {
-      method: "POST",
-      headers: {
-        "Content-Type": "application/json",
-      },
-      body: JSON.stringify(formData),
-    })
+    fetch(
+      "https://phase-3-sinatra-react-project-production-4692.up.railway.app/books",
+      {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify(formData),
+      }
+    )
       .then((r) => r.json())
-      .then((data) => data);
+      .then((data) => {
+        onAddBook(data);
+      });
     navigate("/");
     document.location.reload();
   }

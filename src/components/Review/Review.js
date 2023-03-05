@@ -2,28 +2,35 @@ import React, { useEffect, useState } from "react";
 import { Link, useNavigate, useParams } from "react-router-dom";
 import "./Review.css";
 
-function Review() {
+function Review({ onBookDelete }) {
   const { id } = useParams();
   const navigate = useNavigate();
   const [book, setBook] = useState([]);
   const [reviews, setReviews] = useState([]);
 
   useEffect(() => {
-    fetch(`http://localhost:9292/book/${id}`)
+    fetch(
+      `https://phase-3-sinatra-react-project-production-4692.up.railway.app/book/${id}`
+    )
       .then((r) => r.json())
       .then((data) => setBook(data));
   }, [id]);
 
   function handleDeleteClick() {
-    fetch(`http://localhost:9292/deletebook/${id}`, {
-      method: "DELETE",
-    });
-    navigate("/");
-    document.location.reload();
+    fetch(
+      `https://phase-3-sinatra-react-project-production-4692.up.railway.app/deletebook/${id}`,
+      {
+        method: "DELETE",
+      }
+    );
+    onBookDelete(id);
+    navigate("/home");
   }
 
   useEffect(() => {
-    fetch(`http://localhost:9292/reviews/${id}`)
+    fetch(
+      `https://phase-3-sinatra-react-project-production-4692.up.railway.app/reviews/${id}`
+    )
       .then((r) => r.json())
       .then((data) => setReviews(data.reviews));
   }, [id]);

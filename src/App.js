@@ -11,10 +11,32 @@ function App() {
   const [books, setBooks] = useState([]);
 
   useEffect(() => {
-    fetch("http://localhost:9292/books")
+    fetch(
+      "https://phase-3-sinatra-react-project-production-4692.up.railway.app/books"
+    )
       .then((r) => r.json())
       .then((data) => setBooks(data));
   }, []);
+
+  function handleAddBook(newBook) {
+    setBooks([...books, newBook]);
+  }
+
+  function handleDeleteBook(id) {
+    const updatedBooks = books.filter((book) => book.id !== id);
+    setBooks(updatedBooks);
+  }
+
+  // function handleUpdateBook(updatedBookObj) {
+  //   const updatedBooks = books.map((book) => {
+  //     if (book.id === updatedBookObj.id) {
+  //       return updatedBookObj;
+  //     } else {
+  //       return book;
+  //     }
+  //   });
+  //   setBooks(updatedBooks);
+  // }
 
   return (
     <BrowserRouter>
@@ -22,8 +44,14 @@ function App() {
       <Routes>
         <Route path="/" element={<Navigate to="/home" />} />
         <Route path="/home" element={<HomePage books={books} />} />
-        <Route path="/createbook" element={<CreateBook />} />
-        <Route path="/viewbook/:id" element={<Review />} />
+        <Route
+          path="/createbook"
+          element={<CreateBook onAddBook={handleAddBook} />}
+        />
+        <Route
+          path="/viewbook/:id"
+          element={<Review onBookDelete={handleDeleteBook} />}
+        />
         <Route path="/updatebook/:id" element={<EditBook />} />
       </Routes>
     </BrowserRouter>

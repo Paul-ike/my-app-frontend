@@ -10,7 +10,9 @@ function EditBook() {
   const navigate = useNavigate();
 
   useEffect(() => {
-    fetch(`http://localhost:9292/book/${id}`)
+    fetch(
+      `https://phase-3-sinatra-react-project-production-4692.up.railway.app/reviews/${id}`
+    )
       .then((r) => r.json())
       .then((data) => {
         const { image, title, author, price } = data;
@@ -27,18 +29,21 @@ function EditBook() {
   function handleSubmit(e) {
     e.preventDefault();
 
-    fetch(`http://localhost:9292/updatebook/${id}`, {
-      method: "PATCH",
-      headers: {
-        "Content-Type": "application/json",
-      },
-      body: JSON.stringify({
-        image,
-        title,
-        author,
-        price,
-      }),
-    })
+    fetch(
+      `https://phase-3-sinatra-react-project-production-4692.up.railway.app/updatebook/${id}`,
+      {
+        method: "PATCH",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify({
+          image,
+          title,
+          author,
+          price,
+        }),
+      }
+    )
       .then((response) => response.json())
       .then((data) => {
         setImage(data.image);
